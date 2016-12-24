@@ -1,0 +1,85 @@
+[
+    
+    
+    { "_comment": "### START DEFINITIONS ###" },
+    
+
+    { "_comment": "### ENUMERATION SECTION ###" },
+    
+    
+    { "_comment": "### INTERFACE SECTION ###" },
+
+    
+    { "_comment": "### CLASS SECTION ###" },
+    
+    {
+        "key": "frAdjective",
+        "type": "CLASS",
+        "extends": "word",
+        "implements": [ "genderRelated", "numberRelated" ],
+        "properties": [
+            {
+                "key": "hasMainFormOfWord",
+                "defaultValue": true
+            }
+        ]
+    },
+    
+    {
+        "key": "frAdjectiveFromVerb",
+        "type": "CLASS",
+        "extends": "frAdjective",
+        "properties": [
+            {
+                "key": "parentVerbValue",
+                "type": "verb"
+            }
+        ]
+    },
+    
+    {
+        "key": "frArticle",
+        "type": "CLASS",
+        "extends": "word",
+        "implements": [ "genderRelated", "numberRelated" ],
+        "properties": [
+            {
+                "key": "hasMainFormOfWord",
+                "defaultValue": true
+            }
+        ]
+    },
+    
+    {
+        "key": "frArticleDefined",
+        "type": "CLASS",
+        "extends": "frArticle"
+    },
+    
+    {
+        "key": "frArticleDemonstrative",
+        "type": "CLASS",
+        "extends": "frArticle"
+    },
+    
+    {
+        "key": "frArticlePossessive",
+        "type": "CLASS",
+        "extends": "frArticle",
+        "implements": "personRelated"
+    },
+
+    {
+        "key": "frArticleUndefined",
+        "type": "CLASS",
+        "extends": "frArticle"
+    },
+    
+    
+    { "_comments": "### COMPOSITE SECTION ###" },
+
+    
+    { "_comments": "### END DEFINITIONS ###" }
+]
+
+

@@ -1,0 +1,142 @@
+[
+
+    
+    { "_comment": "### START DEFINITIONS ###" },
+    
+
+    { "_comment": "### ENUMERATION SECTION ###" },
+    
+    {
+        "key": "boolean",
+        "type": "ENUMERATION",
+        "values": [ true, false ]
+    },
+    
+    {
+        "key": "gender",
+        "type": "ENUMERATION",
+        "values": [ "MALE", "FEMALE", "NEUTRAL", "VARIABLE", "UNDEFINED" ]
+    },
+    
+    {
+        "key": "number",
+        "type": "ENUMERATION",
+        "values": [ "ZERO", "SINGULAR", "PLURAL" ]
+    },
+    
+    {
+        "key": "person",
+        "type": "ENUMERATION",
+        "values": [ "FIRST_PERSON", "SECOND_PERSON", "THIRD_PERSON" ]
+    },
+
+    
+    { "_comment": "### INTERFACE SECTION ###" },
+
+    {
+        "key": "genderRelated",
+        "type": "INTERFACE",
+        "properties": [
+            {
+                "key": "genderValue",
+                "type": "gender"
+            }
+        ]
+    },
+
+    {
+        "key": "modeTimeRelated",
+        "type": "INTERFACE",
+        "properties": [
+            {
+                "key": "modeValue",
+                "type": "string"
+            },
+            {
+                "key": "timeValue",
+                "type": "string"
+            }
+        ]
+    },
+
+    {
+        "key": "numberRelated",
+        "type": "INTERFACE",
+        "properties": [
+            {
+                "key": "numberValue",
+                "type": "number"
+            }
+        ]
+    },
+
+    {
+        "key": "personRelated",
+        "type": "INTERFACE",
+        "properties": [
+            {
+                "key": "personValue",
+                "type": "person"
+            }
+        ]
+    },
+
+    
+    { "_comment": "### CLASS SECTION ###" },
+    
+    {
+        "key": "mode",
+        "type": "CLASS",
+        "properties": [
+            {
+                "key": "hasMainFormOfWord",
+                "defaultValue": true
+            }
+        ]
+    },
+    
+    {
+        "key": "noun",
+        "type": "CLASS",
+        "extends": "word",
+        "implements": [ "genderRelated", "numberRelated" ],
+        "properties": [
+            {
+                "key": "hasMainFormOfWord",
+                "defaultValue": true
+            }
+        ]
+    },
+    
+    {
+        "key": "verb",
+        "type": "CLASS",
+        "extends": "word",
+        "implements": [ "genderRelated", "modeTimeRelated", "numberRelated", "personRelated" ],
+        "properties": [
+            {
+                "key": "hasMainFormOfWord",
+                "defaultValue": true
+            }
+        ]
+    },
+    
+    {
+        "key": "word",
+        "type": "CLASS",
+        "properties": [
+            {
+                "key": "hasMainFormOfWord",
+                "type": "boolean",
+                "mustHaveDefaultValue": true
+            }
+        ]
+    },
+    
+    
+    { "_comment": "### COMPOSITE SECTION ###" },
+
+    
+    { "_comment": "### END DEFINITIONS ###" }
+]
+
