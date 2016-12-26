@@ -9,6 +9,11 @@
     
     { "_comment": "### INTERFACE SECTION ###" },
 
+    {
+        "key": "frAdjectivePattern",
+        "type": "INTERFACE",
+        "implements": [ "genderRelated", "numberRelated" ]
+    },
     
     { "_comment": "### CLASS SECTION ###" },
     
@@ -16,23 +21,18 @@
         "key": "frAdjective",
         "type": "CLASS",
         "extends": "word",
-        "implements": [ "genderRelated", "numberRelated" ],
-        "properties": [
-            {
-                "key": "hasMainFormOfWord",
-                "defaultValue": true
-            }
-        ]
+        "implements": [ "frAdjectivePattern" ]
     },
     
     {
         "key": "frAdjectiveFromVerb",
+        "summary": "<span lang='fr'>participe passé adjectival</span>",
         "type": "CLASS",
         "extends": "frAdjective",
         "properties": [
             {
-                "key": "parentVerbValue",
-                "type": "verb"
+                "key": "frAdjectiveFromVerbVerbKey",
+                "type": "string"
             }
         ]
     },
@@ -41,17 +41,12 @@
         "key": "frArticle",
         "type": "CLASS",
         "extends": "word",
-        "implements": [ "genderRelated", "numberRelated" ],
-        "properties": [
-            {
-                "key": "hasMainFormOfWord",
-                "defaultValue": true
-            }
-        ]
+        "implements": [ "genderRelated", "numberRelated" ]
     },
     
     {
         "key": "frArticleDefined",
+        "summary": "<span lang='fr'>article défini</span>",
         "type": "CLASS",
         "extends": "frArticle"
     },
@@ -66,20 +61,46 @@
         "key": "frArticlePossessive",
         "type": "CLASS",
         "extends": "frArticle",
-        "implements": "personRelated"
+        "implements": [ "personRelated" ]
     },
 
     {
         "key": "frArticleUndefined",
+        "summary": "<span lang='fr'>article indéfini</span>",
         "type": "CLASS",
         "extends": "frArticle"
     },
     
     
-    { "_comments": "### COMPOSITE SECTION ###" },
-
+    { "_comment": "### COMPOSITE SECTION ###" },
+ 
+    {
+        "key": "frAdverbAdjectivalGroupInstanceField",
+        "extends": "writableInstanceField",
+        "implements": "adverbAdjectivalPattern",
+        "constraints": {
+            "validity": "([0] && [1] && [2] && [3])",
+            "items": [
+                {
+                    "key": 0,
+                    "value": "function() { return (@@INSTANCE.items.length == 3); }"
+                },
+                {
+                    "key": 1,
+                    "value": "function() { return (@@INSTANCE.items[0].is('adverbAdverbialPattern')); }"
+                },
+                {
+                    "key": 2,
+                    "value": "function() { return ((@@INSTANCE.items[1].is('separator')) && (@@INSTANCE.items[0].separatorValue === 'BLANK_SPACE')); }"
+                },
+                {
+                    "key": 3,
+                    "value": "function() { return (@@INSTANCE.items[2].is('adverbAdjectivalPattern')); }"
+                }
+            ]            
+        }
+    },
     
-    { "_comments": "### END DEFINITIONS ###" }
+    { "_comment": "### END DEFINITIONS ###" }
 ]
-
 

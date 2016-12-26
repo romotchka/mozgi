@@ -1,62 +1,107 @@
 [
-
+    
     
     { "_comment": "### START DEFINITIONS ###" },
-    
 
-    { "_comment": "### ENUMERATION SECTION ###" },
     
-    {
-        "key": "boolean",
-        "type": "ENUMERATION",
-        "values": [ true, false ]
-    },
+    { "_comment": "### CODE-BEHIND ADDED METHODS ###" },
+    
+    { "_comment": "Any instantiable should own a getTypeName() method returning the class as a string" },
+
+    { "_comment": "Any instantiable should own a is() method returning the test towards a class or interface" },
+    
+    { "_comment": "### CONSTANT ARRAYS SECTION ###" },
     
     {
         "key": "gender",
-        "type": "ENUMERATION",
+        "type": "CONSTANT_ARRAY",
         "values": [ "MALE", "FEMALE", "NEUTRAL", "VARIABLE", "UNDEFINED" ]
     },
     
     {
+        "key": "mood",
+        "type": "CONSTANT_ARRAY",
+        "values": [ "INFINITIVE", "INDICATIVE", "SUBJUNCTIVE", "CONDITIONAL", "GERUND" ]
+    },
+    
+    {
         "key": "number",
-        "type": "ENUMERATION",
+        "type": "CONSTANT_ARRAY",
         "values": [ "ZERO", "SINGULAR", "PLURAL" ]
     },
     
     {
         "key": "person",
-        "type": "ENUMERATION",
+        "type": "CONSTANT_ARRAY",
         "values": [ "FIRST_PERSON", "SECOND_PERSON", "THIRD_PERSON" ]
     },
-
+    
+    {
+        "key": "separatorString",
+        "type": "CONSTANT_ARRAY",
+        "values": [ "BLANK_SPACE", "COLON", "COMMA", "DASH", "DASH_LARGE", "DOT", "DOTS", "DOUBLE_QUOTE", "DOUBLE_QUOTE_CURLY_CLOSING", "DOUBLE_QUOTE_CURLY_OPENING", "NULL", "PARENTHESE_CLOSING", "PARENTHESE_OPENING", "SEMI_COLON", "SIMPLE_QUOTE", "SIMPLE_QUOTE_CURLY_CLOSING", "SIMPLE_QUOTE_CURLY_OPENING" ]
+    },
+    
     
     { "_comment": "### INTERFACE SECTION ###" },
+
+    {
+        "_comment": "<span lang='en'>adverb targeted at the modification of an adjective</span>",
+        "key": "adverbAdjectivalPattern",
+        "type": "INTERFACE"
+    },
+
+    {
+        "_comment": "<span lang='en'>adverb targeted at the modification of another adverb</span>",
+        "key": "adverbAdverbialPattern",
+        "type": "INTERFACE"
+    },
+
+    {
+        "_comment": "<span lang='en'>adverb targeted at the modification of a verb</span>",
+        "key": "adverbVerbalPattern",
+        "type": "INTERFACE"
+    },
+
+    {
+        "key": "audible",
+        "type": "INTERFACE",
+        "properties": [
+            {
+                "key": "phoneticValues",
+                "type": "string[]"
+            }
+        ]
+    },
 
     {
         "key": "genderRelated",
         "type": "INTERFACE",
         "properties": [
             {
+                "_comment": "<span lang='en'>genderValue belongs by default to gender constants array</span>",
                 "key": "genderValue",
-                "type": "gender"
+                "type": "string"
             }
         ]
     },
 
     {
-        "key": "modeTimeRelated",
+        "key": "moodRelated",
         "type": "INTERFACE",
         "properties": [
             {
-                "key": "modeValue",
-                "type": "string"
-            },
-            {
-                "key": "timeValue",
+                "_comment": "<span lang='en'>moodValue belongs by default to mood constants array</span>",
+                "key": "moodValue",
                 "type": "string"
             }
         ]
+    },
+
+    {
+        "key": "nounPattern",
+        "type": "INTERFACE",
+        "implements": [ "genderRelated", "numberRelated" ]
     },
 
     {
@@ -64,8 +109,9 @@
         "type": "INTERFACE",
         "properties": [
             {
+                "_comment": "<span lang='en'>numberValue belongs by default to number constants array</span>",
                 "key": "numberValue",
-                "type": "number"
+                "type": "string"
             }
         ]
     },
@@ -75,35 +121,121 @@
         "type": "INTERFACE",
         "properties": [
             {
+                "_comment": "<span lang='en'>personValue belongs by default to person constants array</span>",
                 "key": "personValue",
-                "type": "person"
+                "type": "string"
+            }
+        ]
+    },
+
+    {
+        "key": "timeRelated",
+        "type": "INTERFACE",
+        "properties": [
+            {
+                "_comment": "<span lang='en'>timeValue values are defined within each specific language</span>",
+                "key": "timeValue",
+                "type": "string"
+            }
+        ]
+    },
+
+    {
+        "key": "verbPattern",
+        "type": "INTERFACE",
+        "implements": [ "genderRelated", "moodRelated", "numberRelated", "personRelated", "timeRelated" ]
+    },
+    
+    {
+        "key": "writable",
+        "type": "INTERFACE",
+        "properties": [
+            {
+                "key": "writableCharSet",
+                "type": "string"
+            }
+        ]
+    },
+
+    {
+        "_comment": "<span lang='en'>a textual unit within the session-wise data stream</span>",
+        "key": "writableInstance",
+        "type": "INTERFACE",
+        "properties": [
+            {
+                "_comment": "<span lang='en'>the single writable entry associated to the instance, if any</span>",
+                "key": "writableValue",
+                "type": "writable"
+            },
+            {
+                "_comment": "<span lang='en'>native character of the entry, if any</span>",
+                "key": "writableIsNative",
+                "type": "boolean"
+            },
+            {
+                "_comment": "<span lang='en'>position of the first character within the session-wise data stream</span>",
+                "key": "writableInstanceOffset",
+                "type": "double"
+            }
+        ]
+    },
+    
+    {
+        "_comment": "<span lang='en'>a field of textual units within the data stream, spatially ordered, contiguous or not</span>",
+        "key": "writableInstanceField",
+        "type": "INTERFACE",
+        "properties": [
+            {
+                "key": "items",
+                "type": "writableInstance[]"
             }
         ]
     },
 
     
-    { "_comment": "### CLASS SECTION ###" },
+    { "_comment": "### NON-WRITABLE CLASS SECTION ###" },
     
-    {
-        "key": "mode",
-        "type": "CLASS",
-        "properties": [
-            {
-                "key": "hasMainFormOfWord",
-                "defaultValue": true
-            }
-        ]
-    },
+    
+    { "_comment": "### WRITABLE CLASS SECTION ###" },
     
     {
         "key": "noun",
         "type": "CLASS",
         "extends": "word",
-        "implements": [ "genderRelated", "numberRelated" ],
+        "implements": [ "nounPattern" ]
+    },
+    
+    {
+        "key": "nounCommon",
+        "type": "CLASS",
+        "extends": "noun"
+    },
+    
+    {
+        "key": "nounProper",
+        "type": "CLASS",
+        "extends": "noun",
+        "constraints": {
+            "validity": "([0])",
+            "items": [
+                {
+                    "_comment": "<span lang='en'>proper noun must start with capital letter</span>",
+                    "key": 0,
+                    "value": "function() { var firstChar = (@@INSTANCE.toString())[0]; return firstChar === firstChar.toUpperCase(); }"
+                }
+            ]
+        }
+    },
+    
+    {
+        "key": "separator",
+        "type": "CLASS",
+        "implements": [ "writable" ],
         "properties": [
             {
-                "key": "hasMainFormOfWord",
-                "defaultValue": true
+                "_comment": "<span lang='en'>val belongs by default to separatorString constants array</span>",
+                "key": "separatorValue",
+                "type": "string"
             }
         ]
     },
@@ -112,23 +244,32 @@
         "key": "verb",
         "type": "CLASS",
         "extends": "word",
-        "implements": [ "genderRelated", "modeTimeRelated", "numberRelated", "personRelated" ],
-        "properties": [
-            {
-                "key": "hasMainFormOfWord",
-                "defaultValue": true
-            }
-        ]
+        "implements": [ "verbPattern" ]
     },
     
     {
         "key": "word",
         "type": "CLASS",
+        "implements": [ "audible", "writable" ],
         "properties": [
             {
-                "key": "hasMainFormOfWord",
-                "type": "boolean",
-                "mustHaveDefaultValue": true
+                "_comment": "<span lang='en'>the form of word entry value</span>",
+                "key": "val",
+                "type": "string"
+            },
+            {
+                "key": "innerKey",
+                "type": "string"
+            },
+            {
+                "_comment": "<span lang='en'>null or empty value if no main form of word applicable</span>",
+                "key": "mainFormOfWordInnerKey",
+                "type": "string"
+            },
+            {
+                "_comment": "<span lang='en'>an optional human-friendly comment if disambiguation is necessary</span>",
+                "key": "wordDescription",
+                "type": "string"
             }
         ]
     },
