@@ -1,70 +1,70 @@
 [
     
     
-    { "_comment": "### START DEFINITIONS ###" },
+    { "_commentStartDefinitions": "### START DEFINITIONS ###" },
 
     
-    { "_comment": "### CODE-BEHIND ADDED METHODS ###" },
+    { "_commentCodeBehindMethods": "### CODE-BEHIND ADDED METHODS ###" },
     
-    { "_comment": "Any instantiable should own a getTypeName() method returning the class as a string" },
+    { "_commentMethodGetTypeName": "#getTypeName# <span lang='en'>any instantiable should own a getTypeName() method returning the class as a string</span>" },
 
-    { "_comment": "Any instantiable should own a is() method returning the test towards a class or interface" },
+    { "_commentMethodIs": "#is# <span lang='en'>any instantiable should own a is(string) method returning the test towards a class or interface</span>" },
     
-    { "_comment": "### CONSTANT ARRAYS SECTION ###" },
+    { "_commentConstantArraysSection": "### CONSTANT ARRAYS SECTION ###" },
     
     {
         "key": "gender",
-        "type": "CONSTANT_ARRAY",
+        "type": "string[]",
         "values": [ "MALE", "FEMALE", "NEUTRAL", "VARIABLE", "UNDEFINED" ]
     },
     
     {
         "key": "mood",
-        "type": "CONSTANT_ARRAY",
+        "type": "string[]",
         "values": [ "INFINITIVE", "INDICATIVE", "SUBJUNCTIVE", "CONDITIONAL", "GERUND" ]
     },
     
     {
         "key": "number",
-        "type": "CONSTANT_ARRAY",
+        "type": "string[]",
         "values": [ "ZERO", "SINGULAR", "PLURAL" ]
     },
     
     {
         "key": "person",
-        "type": "CONSTANT_ARRAY",
-        "values": [ "FIRST_PERSON", "SECOND_PERSON", "THIRD_PERSON" ]
+        "type": "string[]",
+        "values": [ "FIRST_PERSON", "SECOND_PERSON_FORMAL", "SECOND_PERSON_INFORMAL", "THIRD_PERSON" ]
     },
     
     {
         "key": "separatorString",
-        "type": "CONSTANT_ARRAY",
+        "type": "string[]",
         "values": [ "BLANK_SPACE", "COLON", "COMMA", "DASH", "DASH_LARGE", "DOT", "DOTS", "DOUBLE_QUOTE", "DOUBLE_QUOTE_CURLY_CLOSING", "DOUBLE_QUOTE_CURLY_OPENING", "NULL", "PARENTHESE_CLOSING", "PARENTHESE_OPENING", "SEMI_COLON", "SIMPLE_QUOTE", "SIMPLE_QUOTE_CURLY_CLOSING", "SIMPLE_QUOTE_CURLY_OPENING" ]
     },
     
     
-    { "_comment": "### INTERFACE SECTION ###" },
+    { "_commentInterfaceSection": "### INTERFACE SECTION ###" },
 
     {
-        "_comment": "<span lang='en'>adverb targeted at the modification of an adjective</span>",
+        "_summary": "<span lang='en'>adverb targeted at the modification of an adjective</span>",
         "key": "adverbAdjectivalPattern",
         "type": "INTERFACE"
     },
 
     {
-        "_comment": "<span lang='en'>adverb targeted at the modification of another adverb</span>",
+        "_summary": "<span lang='en'>adverb targeted at the modification of another adverb</span>",
         "key": "adverbAdverbialPattern",
         "type": "INTERFACE"
     },
 
     {
-        "_comment": "<span lang='en'>adverb targeted at the modification of a verb</span>",
+        "_summary": "<span lang='en'>adverb targeted at the modification of a verb</span>",
         "key": "adverbVerbalPattern",
         "type": "INTERFACE"
     },
 
     {
-        "key": "audible",
+        "key": "audibleUnit",
         "type": "INTERFACE",
         "properties": [
             {
@@ -143,60 +143,67 @@
     {
         "key": "verbPattern",
         "type": "INTERFACE",
-        "implements": [ "genderRelated", "moodRelated", "numberRelated", "personRelated", "timeRelated" ]
+        "aggregates": [ "genderRelated", "moodRelated", "numberRelated", "personRelated", "timeRelated" ]
     },
     
     {
-        "key": "writable",
+        "key": "writableUnit",
         "type": "INTERFACE",
         "properties": [
             {
-                "key": "writableCharSet",
+                "key": "charSet",
                 "type": "string"
             }
         ]
     },
 
     {
-        "_comment": "<span lang='en'>a textual unit within the session-wise data stream</span>",
-        "key": "writableInstance",
+        "_summary": "<span lang='en'>a textual unit occurrence within the session-wise data stream</span>",
+        "key": "writableUnitOccurrence",
         "type": "INTERFACE",
         "properties": [
             {
-                "_comment": "<span lang='en'>the single writable entry associated to the instance, if any</span>",
-                "key": "writableValue",
-                "type": "writable"
+                "_summary": "<span lang='en'>the single writable entry associated to the instance, if any</span>",
+                "key": "ref",
+                "type": "writableUnit"
             },
             {
-                "_comment": "<span lang='en'>native character of the entry, if any</span>",
-                "key": "writableIsNative",
+                "_summary": "<span lang='en'>entry found in dictionary</span>",
+                "key": "isFound",
                 "type": "boolean"
             },
             {
-                "_comment": "<span lang='en'>position of the first character within the session-wise data stream</span>",
-                "key": "writableInstanceOffset",
+                "_summary": "<span lang='en'>position of the first character within the session-wise data stream</span>",
+                "key": "xPos",
                 "type": "double"
+            },
+            {
+                "_summary": "<span lang='en'>layer number for complex sentence structures</span>",
+                "key": "zPos",
+                "type": "double",
+                "default": 0.0
             }
         ]
     },
     
     {
-        "_comment": "<span lang='en'>a field of textual units within the data stream, spatially ordered, contiguous or not</span>",
-        "key": "writableInstanceField",
+        "_summary": "<span lang='en'>a field of textual unit occurrences within the data stream, spatially ordered, contiguous or not and sharing the same zPos value</span>",
+        "_commentMethodMagnetism": "#magnetism# <span lang='en'>magnetism(itemIndex1, itemIndex2), defined under code-behind responsibility, static method, expresses items attractivity, symmetric; 1.0 means items must be contiguous, -1.0 means items placed at boundaries of sentence</span>",
+        "key": "writableUnitOccurrenceField",
         "type": "INTERFACE",
         "properties": [
             {
                 "key": "items",
-                "type": "writableInstance[]"
+                "type": "writableUnitOccurrence[]"
             }
         ]
     },
 
     
-    { "_comment": "### NON-WRITABLE CLASS SECTION ###" },
+    { "_commentNonWritableClassSection": "### NON-WRITABLE CLASS SECTION ###" },
     
     
-    { "_comment": "### WRITABLE CLASS SECTION ###" },
+    { "_commentWritableClassSection": "### WRITABLE CLASS SECTION ###" },
     
     {
         "key": "noun",
@@ -216,12 +223,12 @@
         "type": "CLASS",
         "extends": "noun",
         "constraints": {
-            "validity": "([0])",
+            "isInstantiableCondition": "(&&)",
             "items": [
                 {
-                    "_comment": "<span lang='en'>proper noun must start with capital letter</span>",
+                    "_summary": "<span lang='en'>proper noun must start with capital letter</span>",
                     "key": 0,
-                    "value": "function() { var firstChar = (@@INSTANCE.toString())[0]; return firstChar === firstChar.toUpperCase(); }"
+                    "value": "function() { var firstChar = @@INSTANCE.label.charAt(0); return firstChar === firstChar.toUpperCase(); }"
                 }
             ]
         }
@@ -233,8 +240,13 @@
         "implements": [ "writable" ],
         "properties": [
             {
-                "_comment": "<span lang='en'>val belongs by default to separatorString constants array</span>",
-                "key": "separatorValue",
+                "_summary": "<span lang='en'>value belongs by default to separatorString constants array</span>",
+                "key": "label",
+                "type": "string"
+            },
+            {
+                "_summary": "<span lang='en'>an optional human-friendly comment if disambiguation is necessary</span>",
+                "key": "description",
                 "type": "string"
             }
         ]
@@ -250,34 +262,35 @@
     {
         "key": "word",
         "type": "CLASS",
-        "implements": [ "audible", "writable" ],
+        "implements": [ "audibleUnit", "writableUnit" ],
         "properties": [
             {
-                "_comment": "<span lang='en'>the form of word entry value</span>",
-                "key": "val",
+                "_summary": "<span lang='en'>the form of word entry value</span>",
+                "key": "label",
                 "type": "string"
             },
             {
+                "_summary": "<span lang='en'>internal key within dictionary</span>",
                 "key": "innerKey",
                 "type": "string"
             },
             {
-                "_comment": "<span lang='en'>null or empty value if no main form of word applicable</span>",
-                "key": "mainFormOfWordInnerKey",
+                "_summary": "<span lang='en'>null or empty value if no main form of word applicable</span>",
+                "key": "mainFormInnerKey",
                 "type": "string"
             },
             {
-                "_comment": "<span lang='en'>an optional human-friendly comment if disambiguation is necessary</span>",
-                "key": "wordDescription",
+                "_summary": "<span lang='en'>an optional human-friendly comment if disambiguation is necessary</span>",
+                "key": "description",
                 "type": "string"
             }
         ]
     },
     
     
-    { "_comment": "### COMPOSITE SECTION ###" },
+    { "_commentCompositeSection": "### COMPOSITE SECTION ###" },
 
     
-    { "_comment": "### END DEFINITIONS ###" }
+    { "_commentEndDefinitions": "### END DEFINITIONS ###" }
 ]
 

@@ -1,13 +1,13 @@
 [
     
     
-    { "_comment": "### START DEFINITIONS ###" },
+    { "_commentStartDefinitions": "### START DEFINITIONS ###" },
     
 
-    { "_comment": "### ENUMERATION SECTION ###" },
+    { "_commentEnumerationSection": "### ENUMERATION SECTION ###" },
     
     
-    { "_comment": "### INTERFACE SECTION ###" },
+    { "_commentInterfaceSection": "### INTERFACE SECTION ###" },
 
     {
         "key": "frAdjectivePattern",
@@ -15,7 +15,7 @@
         "implements": [ "genderRelated", "numberRelated" ]
     },
     
-    { "_comment": "### CLASS SECTION ###" },
+    { "_commentClassSection": "### CLASS SECTION ###" },
     
     {
         "key": "frAdjective",
@@ -25,13 +25,13 @@
     },
     
     {
+        "_summary": "<span lang='fr'>participe passé adjectival</span>",
         "key": "frAdjectiveFromVerb",
-        "summary": "<span lang='fr'>participe passé adjectival</span>",
         "type": "CLASS",
         "extends": "frAdjective",
         "properties": [
             {
-                "key": "frAdjectiveFromVerbVerbKey",
+                "key": "verbInnerKey",
                 "type": "string"
             }
         ]
@@ -45,8 +45,8 @@
     },
     
     {
+        "_summary": "<span lang='fr'>article défini</span>",
         "key": "frArticleDefined",
-        "summary": "<span lang='fr'>article défini</span>",
         "type": "CLASS",
         "extends": "frArticle"
     },
@@ -65,21 +65,21 @@
     },
 
     {
+        "_summary": "<span lang='fr'>article indéfini</span>",
         "key": "frArticleUndefined",
-        "summary": "<span lang='fr'>article indéfini</span>",
         "type": "CLASS",
         "extends": "frArticle"
     },
     
     
-    { "_comment": "### COMPOSITE SECTION ###" },
+    { "_commentCompositeSection": "### COMPOSITE SECTION ###" },
  
     {
-        "key": "frAdverbAdjectivalGroupInstanceField",
-        "extends": "writableInstanceField",
-        "implements": "adverbAdjectivalPattern",
+        "key": "frAdverbAdjectivalOccurrenceField",
+        "type": "CLASS",
+        "implements": [ "writableUnitOccurrenceField", "adverbAdjectivalPattern" ],
         "constraints": {
-            "validity": "([0] && [1] && [2] && [3])",
+            "isInstantiableCondition": "(&&)",
             "items": [
                 {
                     "key": 0,
@@ -87,15 +87,19 @@
                 },
                 {
                     "key": 1,
-                    "value": "function() { return (@@INSTANCE.items[0].is('adverbAdverbialPattern')); }"
+                    "value": "function() { return (@@INSTANCE.items[0].ref.is('adverbAdverbialPattern')); }"
                 },
                 {
                     "key": 2,
-                    "value": "function() { return ((@@INSTANCE.items[1].is('separator')) && (@@INSTANCE.items[0].separatorValue === 'BLANK_SPACE')); }"
+                    "value": "function() { return (@@INSTANCE.items[1].ref.is('separator')); }"
                 },
                 {
                     "key": 3,
-                    "value": "function() { return (@@INSTANCE.items[2].is('adverbAdjectivalPattern')); }"
+                    "value": "function() { return (@@INSTANCE.items[1].ref.label === 'BLANK_SPACE'); }"
+                },
+                {
+                    "key": 4,
+                    "value": "function() { return (@@INSTANCE.items[2].ref.is('adverbAdjectivalPattern')); }"
                 }
             ]            
         }
