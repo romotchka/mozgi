@@ -188,7 +188,7 @@
     
     {
         "_summary": "<span lang='en'>a field of textual unit occurrences within the data stream, spatially ordered, contiguous or not and sharing the same zPos value</span>",
-        "_commentMethodMagnetism": "#magnetism# <span lang='en'>magnetism(itemIndex1, itemIndex2), defined under code-behind responsibility, static method, expresses items attractivity, symmetric; 1.0 means items must be contiguous, -1.0 means items placed at boundaries of sentence</span>",
+        "_commentMethodMagnetism": "#magnetism# <span lang='en'>magnetism(i), defined under code-behind responsibility, static method, expresses attractivity from item of index i to item of index i+1; 1.0 means items must be contiguous, -1.0 means items placed at boundaries of sentence</span>",
         "key": "writableUnitOccurrenceField",
         "type": "INTERFACE",
         "properties": [
@@ -222,12 +222,12 @@
         "key": "nounProper",
         "type": "CLASS",
         "extends": "noun",
-        "constraints": {
+        "constraint": {
             "isInstantiableCondition": "(&&)",
             "items": [
                 {
                     "_summary": "<span lang='en'>proper noun must start with capital letter</span>",
-                    "key": 0,
+                    "index": 0,
                     "value": "function() { var firstChar = @@INSTANCE.label.charAt(0); return firstChar === firstChar.toUpperCase(); }"
                 }
             ]

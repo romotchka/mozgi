@@ -75,35 +75,54 @@
     { "_commentCompositeSection": "### COMPOSITE SECTION ###" },
  
     {
-        "key": "frAdverbAdjectivalOccurrenceField",
+        "key": "frAdverbComposite<T>",
         "type": "CLASS",
-        "implements": [ "writableUnitOccurrenceField", "adverbAdjectivalPattern" ],
-        "constraints": {
+        "implements": [ "writableUnitOccurrenceField", "T" ],
+        "constraint": {
             "isInstantiableCondition": "(&&)",
             "items": [
                 {
-                    "key": 0,
+                    "index": 0,
                     "value": "function() { return (@@INSTANCE.items.length == 3); }"
                 },
                 {
-                    "key": 1,
+                    "index": 1,
                     "value": "function() { return (@@INSTANCE.items[0].ref.is('adverbAdverbialPattern')); }"
                 },
                 {
-                    "key": 2,
+                    "index": 2,
                     "value": "function() { return (@@INSTANCE.items[1].ref.is('separator')); }"
                 },
                 {
-                    "key": 3,
+                    "index": 3,
                     "value": "function() { return (@@INSTANCE.items[1].ref.label === 'BLANK_SPACE'); }"
                 },
                 {
-                    "key": 4,
-                    "value": "function() { return (@@INSTANCE.items[2].ref.is('adverbAdjectivalPattern')); }"
+                    "index": 4,
+                    "value": "function() { return (@@INSTANCE.items[2].ref.is('T')); }"
                 }
             ]            
         }
     },
+    
+    {
+        "key": "frAdverbAdjectivalComposite",
+        "type": "CLASS",
+        "extends": "frAdverbComposite<adverbAdjectivalPattern>"
+    },
+    
+    {
+        "key": "frAdverbAdverbialComposite",
+        "type": "CLASS",
+        "extends": "frAdverbComposite<adverbAdverbialPattern>"
+    },
+    
+    {
+        "key": "frAdverbVerbalComposite",
+        "type": "CLASS",
+        "extends": "frAdverbComposite<adverbVerbalPattern>"
+    },
+    
     
     { "_comment": "### END DEFINITIONS ###" }
 ]
